@@ -15,12 +15,12 @@ while mark != -1:
         lowestmark = mark
     mark = int(input("Enter a mark (or -1 to finnish): "))
 if enter == 0:
-    average = mark/enter
+    average = 0
     highestmark = 0
     lowestmark = 0
 
 else:
-    average = 0
+    average = total/enter
 print(f"Marks entered: {enter}")
 print(f"Average: {average}")
 print(f"Highest: {highestmark}")
