@@ -25,9 +25,3 @@ print(f"Marks entered: {enter}")
 print(f"Average: {average}")
 print(f"Highest: {highestmark}")
 print(f"Lowest: {lowestmark}")
-"""
-        if enter == 0:
-            highestmark = 0
-            lowestmark = 0
-        break
-"""
