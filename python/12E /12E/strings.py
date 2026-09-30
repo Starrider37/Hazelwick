@@ -7,4 +7,4 @@ length = len(fname) + len(lname)
 
 username = (initial + part2 + str(length)).lower()
 
-print("The username is:",username)
+print("The username is:",username))
