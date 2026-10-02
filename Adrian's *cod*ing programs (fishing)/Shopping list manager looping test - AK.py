@@ -1,5 +1,9 @@
 additem = "0"
 removeitem = "0"
+count = 0
+itemsadded = []
+itemsremoved = []
+
 def normalize(word):
     word = word.strip()
     word = word.lower()
@@ -43,14 +47,14 @@ def endnumber(word):
         ending = "ᵗʰ"
     return ending
 def createlist(list):
-    for i in list:
+    for i in range(len(list)):
         if i == (len(list) - 2):
-            part = (f"{list[i]}and ", end="")
+            print(f"{list[i]} and ", end="")
         elif i == (len(list) - 1):
-            part = (f"{list[i]} ", end="")
+            print(f"{list[i]} ", end="")
         else:
-            part = (f"{list[i]}, ", end="")
-        print(part)
+            print(f"{list[i]}, ", end="")
+       
 
 
 
@@ -69,10 +73,11 @@ while option != "6":
     if count > 1 and prevadd == True:
         createlist(itemsadded)
         print ("were added to your shopping list.")
-    if couny > 1 and prevrem == True:
-                createlist(itemsadded)
-        print ("were removed from your shopping list.")
-    print(message)
+    if count > 1 and prevrem == True:
+        createlist(itemsadded)
+        print("were removed from your shopping list.")
+    else:
+        print(message)
     prevrem = False
     prevadd = False
     print()
