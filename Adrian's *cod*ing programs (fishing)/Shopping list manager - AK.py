@@ -93,7 +93,7 @@ while option != "6":
         elif removeitem in shoppinglist:
             shoppinglist.remove(removeitem)
             if s(removeitem) == False:
-                message =t(f"{removeitem} was removed from your shopping list.")
+                message =(f"{removeitem} was removed from your shopping list.")
             else:
                 message =(f"{removeitem} were removed from your shopping list.")
         else:
