@@ -26,6 +26,16 @@ def printmenu(menu):
     if menu == False:
         print("""
 """)
+def endnumber(word):
+    if word == "1":
+        ending = "ˢᵗ"
+    if word == "2":
+        ending = "ⁿᵈ"
+    if word == "3":
+        ending = "ʳᵈ"
+    else:
+        ending = "ᵗʰ"
+    return ending
 
 
 
@@ -35,11 +45,12 @@ option = 0
 message = ""
 while option != "6":
     menu = True
+    if option == "3" or option == "5":
+            printlist()
+            print()
+            input("Enter when you would like to return to the menu: ")
     print()
     printmenu(menu)
-    if option == "3" or option == "5":
-        printlist()
-        print()
     print(message)
     print()
     option = input("What would you like to do?: ")
@@ -50,6 +61,8 @@ while option != "6":
         printmenu(menu)
         additem = input("What would you like to add to the list?: ")
         additem = normalize(additem)
+        if additem[-1] == "." and (additem[0:(len(additem)-1)]).isnumeric():
+            message = ("Please don't add index numbers to the shopping list, it's too confusing to list.")
         if additem in shoppinglist:
             if s(additem) == False:
                 message = (f"{additem} is already on your shopping list")
@@ -64,14 +77,20 @@ while option != "6":
 
     if option == "2":
         printmenu(menu)
-        removeitem = input("What item would you like to remove?")
+        removeitem = input("What item would you like to remove?: ")
         
 
         removeitem = normalize(removeitem) 
         if removeitem[-1] == "." and (removeitem[0:(len(removeitem)-1)]).isnumeric():
-            shoppinglist.remove(shoppinglist[removeitem[0:(len(removeitem)-1)]])
-# HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if removeitem in shoppinglist:
+            if (int(removeitem[0:(len(removeitem)-1)]) <= len(shoppinglist)) and int(removeitem[0:(len(removeitem)-1)]) > 0 :
+                message = (f"The {removeitem[0:(len(removeitem)-1)]}{endnumber(removeitem[0:(len(removeitem)-1)])} item ({shoppinglist[(int(removeitem[0:(len(removeitem)-1)]))-1]}) was removed from your shopping list.")
+                shoppinglist.remove(shoppinglist[(int(removeitem[0:(len(removeitem)-1)]))-1])
+            else:
+                if removeitem[0] == "-":
+                    message = (f"The shopping list can't index negative numbers. ({removeitem[0:(len(removeitem)-1)]} is negative).")
+                else:
+                    message = (f"Your shopping list only contains {len(shoppinglist)} items.")
+        elif removeitem in shoppinglist:
             shoppinglist.remove(removeitem)
             if s(removeitem) == False:
                 message =t(f"{removeitem} was removed from your shopping list.")
