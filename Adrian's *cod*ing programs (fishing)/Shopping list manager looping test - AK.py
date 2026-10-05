@@ -3,7 +3,10 @@ removeitem = "0"
 count = 0
 itemsadded = []
 itemsremoved = []
-
+history = []
+remhistory = []
+prevadd = False
+prevrem = False
 def normalize(word):
     word = word.strip()
     word = word.lower()
@@ -47,15 +50,28 @@ def endnumber(word):
         ending = "ᵗʰ"
     return ending
 def createlist(list):
+    message = ""
     for i in range(len(list)):
         if i == (len(list) - 2):
-            print(f"{list[i]} and ", end="")
+            message = message + (f"{list[i]} and ")
         elif i == (len(list) - 1):
-            print(f"{list[i]} ", end="")
+            message = message + (f"{list[i]} ")
         else:
-            print(f"{list[i]}, ", end="")
-       
-
+            message = message + (f"{list[i]}, ")
+    return message
+#Here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+def printmessage(count,prevadd,itemsadded,prevrem,itemsremoved,message):
+    if count > 1 and prevadd == True:
+        createlist(itemsadded)
+        message = message + ("were added to your shopping list.")
+        print(message)
+    elif count > 1 and prevrem == True:
+        createlist(itemsremoved)
+        message = message + ("were removed from your shopping list.")
+        print(message)
+    else:
+        print(message)
+    
 
 
 
@@ -70,14 +86,8 @@ while option != "6":
             
     print()
     printmenu(menu)
-    if count > 1 and prevadd == True:
-        createlist(itemsadded)
-        print ("were added to your shopping list.")
-    elif count > 1 and prevrem == True:
-        createlist(itemsadded)
-        print("were removed from your shopping list.")
-    else:
-        print(message)
+    printmessage(count,prevadd,itemsadded,prevrem,itemsremoved,message)
+
     prevrem = False
     prevadd = False
     print()
@@ -100,6 +110,20 @@ while option != "6":
 
                 if additem[-1] == "." and (additem[0:(len(additem)-1)]).isnumeric():
                     message = ("Please don't add index numbers to the shopping list, it's too confusing to list.")
+                elif additem == "-1":
+                    if len(history) > 0:
+                        historicitem = history[-1]
+                        if s(historicitem) == False:
+                            message =(f"{historicitem} was removed from your shopping list.")
+                        else:
+                            message =(f"{historicitem} were removed from your shopping list.")
+                        shoppinglist.remove(historicitem)
+                        history.remove(historicitem)
+                        itemsadded.remove(historicitem)
+                        count = count - 1 
+                    
+                    else:
+                        message = "Your list is empty, there is nothing to remove"
                 elif additem in shoppinglist:
                     if s(additem) == False:
                         message = (f"{additem} is already on your shopping list")
@@ -112,6 +136,7 @@ while option != "6":
                     else:
                         message =(f"{additem} were added to your shopping list.")
                     itemsadded.append(additem)
+                    history.append(additem)
         additem = "0"
 
                 
@@ -120,7 +145,7 @@ while option != "6":
     if option == "2":
         count = 0
         itemsremoved = []
-        prevrem == True
+        prevrem = True
         addorrem = True
         while removeitem != "":
             print()
@@ -132,13 +157,31 @@ while option != "6":
                 # should have set "removeitem[0:(len(removeitem)-1" as a variable; I wouldn't have to repeat it so many times.
                 if removeitem[-1] == "." and (removeitem[0:(len(removeitem)-1)]).isnumeric():
                     if (int(removeitem[0:(len(removeitem)-1)]) <= len(shoppinglist)) and int(removeitem[0:(len(removeitem)-1)]) > 0 :
+                        remhistory.append(shoppinglist[(int(removeitem[0:(len(removeitem)-1)]))-1])
+                        itemsremoved.append(shoppinglist[(int(removeitem[0:(len(removeitem)-1)]))-1])
                         message = (f"The {removeitem[0:(len(removeitem)-1)]}{endnumber(removeitem[0:(len(removeitem)-1)])} item ({shoppinglist[(int(removeitem[0:(len(removeitem)-1)]))-1]}) was removed from your shopping list.")
                         shoppinglist.remove(shoppinglist[(int(removeitem[0:(len(removeitem)-1)]))-1])
+                        
                     else:
                         if removeitem[0] == "-":
                             message = (f"The shopping list can't index negative numbers. ({removeitem[0:(len(removeitem)-1)]} is negative).")
                         else:
                             message = (f"Your shopping list only contains {len(shoppinglist)} items.")
+                elif removeitem == "-1":
+                    if len(remhistory) > 0:
+                        remhistoricitem = remhistory[-1]
+                        if s(remhistoricitem) == False:
+                            message =(f"{remhistoricitem} was added back to your shopping list.")
+                        else:
+                            message =(f"{remhistoricitem} were added back to your shopping list.")
+                        shoppinglist.append(remhistoricitem)
+                        remhistory.remove(remhistoricitem)
+                        count = count - 1 
+                    
+                    else:
+                        message = "You haven't removed anything from the list"
+
+
                 elif removeitem in shoppinglist:
                     shoppinglist.remove(removeitem)
                     if s(removeitem) == False:
