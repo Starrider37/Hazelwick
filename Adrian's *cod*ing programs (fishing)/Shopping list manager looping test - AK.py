@@ -3,7 +3,7 @@ removeitem = "0"
 count = 0
 itemsadded = []
 itemsremoved = []
-history = []
+history = [[],[]]
 remhistory = []
 prevadd = False
 prevrem = False
@@ -25,6 +25,7 @@ def printlist():
     print()
     if addorrem == True:
         print()
+        printmessage(count,prevadd,itemsadded,prevrem,itemsremoved,message)
         print(message)
         print()
 def printmenu(menu):
@@ -59,18 +60,17 @@ def createlist(list):
         else:
             message = message + (f"{list[i]}, ")
     return message
-#Here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def printmessage(count,prevadd,itemsadded,prevrem,itemsremoved,message):
     if count > 1 and prevadd == True:
-        createlist(itemsadded)
+        message = createlist(itemsadded)
         message = message + ("were added to your shopping list.")
-        print(message)
+        
     elif count > 1 and prevrem == True:
-        createlist(itemsremoved)
+        message = createlist(itemsremoved)
         message = message + ("were removed from your shopping list.")
-        print(message)
-    else:
-        print(message)
+    return message
+
+    
     
 
 
@@ -86,7 +86,8 @@ while option != "6":
             
     print()
     printmenu(menu)
-    printmessage(count,prevadd,itemsadded,prevrem,itemsremoved,message)
+    message = printmessage(count,prevadd,itemsadded,prevrem,itemsremoved,message)
+    print(message)
 
     prevrem = False
     prevadd = False
@@ -110,25 +111,13 @@ while option != "6":
 
                 if additem[-1] == "." and (additem[0:(len(additem)-1)]).isnumeric():
                     message = ("Please don't add index numbers to the shopping list, it's too confusing to list.")
-                elif additem == "-1":
-                    if len(history) > 0:
-                        historicitem = history[-1]
-                        if s(historicitem) == False:
-                            message =(f"{historicitem} was removed from your shopping list.")
-                        else:
-                            message =(f"{historicitem} were removed from your shopping list.")
-                        shoppinglist.remove(historicitem)
-                        history.remove(historicitem)
-                        itemsadded.remove(historicitem)
-                        count = count - 1 
-                    
-                    else:
-                        message = "Your list is empty, there is nothing to remove"
+
                 elif additem in shoppinglist:
                     if s(additem) == False:
                         message = (f"{additem} is already on your shopping list")
                     else:
                         message =(f"{additem} are already on your shopping list")
+                    count = count - 1 
                 else:
                     shoppinglist.append(additem)
                     if s(additem) == False:
@@ -136,7 +125,7 @@ while option != "6":
                     else:
                         message =(f"{additem} were added to your shopping list.")
                     itemsadded.append(additem)
-                    history.append(additem)
+                    
         additem = "0"
 
                 
@@ -167,19 +156,7 @@ while option != "6":
                             message = (f"The shopping list can't index negative numbers. ({removeitem[0:(len(removeitem)-1)]} is negative).")
                         else:
                             message = (f"Your shopping list only contains {len(shoppinglist)} items.")
-                elif removeitem == "-1":
-                    if len(remhistory) > 0:
-                        remhistoricitem = remhistory[-1]
-                        if s(remhistoricitem) == False:
-                            message =(f"{remhistoricitem} was added back to your shopping list.")
-                        else:
-                            message =(f"{remhistoricitem} were added back to your shopping list.")
-                        shoppinglist.append(remhistoricitem)
-                        remhistory.remove(remhistoricitem)
-                        count = count - 1 
-                    
-                    else:
-                        message = "You haven't removed anything from the list"
+
 
 
                 elif removeitem in shoppinglist:
