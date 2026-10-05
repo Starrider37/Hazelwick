@@ -81,6 +81,7 @@ while option != "6":
         
 
         removeitem = normalize(removeitem) 
+        # should have set "removeitem[0:(len(removeitem)-1" as a variable; I wouldn't have to repeat it so many times.
         if removeitem[-1] == "." and (removeitem[0:(len(removeitem)-1)]).isnumeric():
             if (int(removeitem[0:(len(removeitem)-1)]) <= len(shoppinglist)) and int(removeitem[0:(len(removeitem)-1)]) > 0 :
                 message = (f"The {removeitem[0:(len(removeitem)-1)]}{endnumber(removeitem[0:(len(removeitem)-1)])} item ({shoppinglist[(int(removeitem[0:(len(removeitem)-1)]))-1]}) was removed from your shopping list.")
