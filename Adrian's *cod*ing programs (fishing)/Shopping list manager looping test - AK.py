@@ -105,7 +105,11 @@ while option != "6":
             count = count + 1
             print()
             printlist()
-            additem = input(f"{len(shoppinglist) + 1}. ")
+            if historycontrol == True and history[1][-1] == "remove":
+                additem = history [0][-1]
+            else:
+            #HERE!!!!!!!!!!!!!!!!!!!!!!
+                additem = input(f"{len(shoppinglist) + 1}. ")
             additem = normalize(additem)
             if additem != "":
 
@@ -118,6 +122,9 @@ while option != "6":
                     else:
                         message =(f"{additem} are already on your shopping list")
                     count = count - 1 
+                elif additem == "-1":
+                    historycontrol = True
+                    additem = ""
                 else:
                     shoppinglist.append(additem)
                     if s(additem) == False:
@@ -125,7 +132,8 @@ while option != "6":
                     else:
                         message =(f"{additem} were added to your shopping list.")
                     itemsadded.append(additem)
-                    
+                    history[0].append(additem)
+                    history[1].append("add")
         additem = "0"
 
                 
@@ -166,6 +174,8 @@ while option != "6":
                     else:
                         message =(f"{removeitem} were removed from your shopping list.")
                     itemsremoved.append(removeitem)
+                    history[0].append(removeitem)
+                    history[1].append("remove")
                 else:
                     if s(removeitem) == False:
                         message = (f"{removeitem} is not on your shopping list.")
