@@ -73,7 +73,7 @@ while option != "6":
     if count > 1 and prevadd == True:
         createlist(itemsadded)
         print ("were added to your shopping list.")
-    if count > 1 and prevrem == True:
+    elif count > 1 and prevrem == True:
         createlist(itemsadded)
         print("were removed from your shopping list.")
     else:
@@ -92,6 +92,7 @@ while option != "6":
         addorrem = True
         while additem != "":
             count = count + 1
+            print()
             printlist()
             additem = input(f"{len(shoppinglist) + 1}. ")
             additem = normalize(additem)
@@ -111,7 +112,7 @@ while option != "6":
                     else:
                         message =(f"{additem} were added to your shopping list.")
                     itemsadded.append(additem)
-    
+        additem = "0"
 
                 
                     
@@ -122,6 +123,7 @@ while option != "6":
         prevrem == True
         addorrem = True
         while removeitem != "":
+            print()
             printlist()
             removeitem = input("What item would you like to remove?: ")
             removeitem = normalize(removeitem) 
@@ -149,6 +151,7 @@ while option != "6":
                         message = (f"{removeitem} is not on your shopping list.")
                     else:
                         message = (f"{removeitem} are not on your shopping list.")
+        removeitem = "0"
 
     if option == "3":
         if len(shoppinglist) == 0:
