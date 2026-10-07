@@ -4,6 +4,7 @@ count = 0
 itemsadded = []
 itemsremoved = []
 history = [[],[]]
+historycontrol = False
 remhistory = []
 prevadd = False
 prevrem = False
@@ -102,7 +103,6 @@ while option != "6":
         count = 0
         addorrem = True
         while additem != "":
-            count = count + 1
             print()
             printlist()
             if historycontrol == True and history[1][-1] == "remove":
@@ -112,7 +112,7 @@ while option != "6":
                 additem = input(f"{len(shoppinglist) + 1}. ")
             additem = normalize(additem)
             if additem != "":
-
+                count = count + 1
                 if additem[-1] == "." and (additem[0:(len(additem)-1)]).isnumeric():
                     message = ("Please don't add index numbers to the shopping list, it's too confusing to list.")
 
@@ -134,6 +134,7 @@ while option != "6":
                     itemsadded.append(additem)
                     history[0].append(additem)
                     history[1].append("add")
+                    
         additem = "0"
 
                 
@@ -149,8 +150,9 @@ while option != "6":
             printlist()
             removeitem = input("What item would you like to remove?: ")
             removeitem = normalize(removeitem) 
-            count = count + 1
+
             if removeitem != "":
+                count = count + 1
                 # should have set "removeitem[0:(len(removeitem)-1" as a variable; I wouldn't have to repeat it so many times.
                 if removeitem[-1] == "." and (removeitem[0:(len(removeitem)-1)]).isnumeric():
                     if (int(removeitem[0:(len(removeitem)-1)]) <= len(shoppinglist)) and int(removeitem[0:(len(removeitem)-1)]) > 0 :
