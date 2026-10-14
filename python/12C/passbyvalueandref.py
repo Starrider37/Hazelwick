@@ -6,7 +6,6 @@ def double_list(values):
     for i in range(len(values)):
         values[i] = values[i]*2
     print("Inside procedure:",values)
-
 #main program
 number = 5
 double_number(number)
