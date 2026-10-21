@@ -1,6 +1,6 @@
 # **Computer Science & IT**<br/>@ Hazelwick School
 
-This is a template repository for Computer Science & IT at Hazelwick School.
+This is Adrian's template repository for Computer Science & IT at Hazelwick School.
 
 ## Quickstart
 
