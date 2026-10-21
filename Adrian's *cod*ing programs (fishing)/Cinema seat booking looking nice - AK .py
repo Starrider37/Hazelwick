@@ -26,6 +26,6 @@ cinema = [["0","0","0","0","0","0","","","","","","","","","0","0","0","0","0","
 
 print("Welcome to the cinema")
 adult = int(input("How many adult tickets would you like to purchase? :"))
-
+#HERE!!!!!!!!!!!!!!!!!!
 
 
