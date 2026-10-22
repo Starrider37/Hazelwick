@@ -160,20 +160,29 @@ screenwipe()
 for i in range(totaltickets):
     seatrow = -1
     board(cinema,seatrow)
-
-    seatrow = int(input("Which row would you like to book a seat on?: "))
+    count = 0
+    while seatrow == -1 or (seatrow > len(cinema) or seatrow < 1):
+        count = count + 1
+        if (seatrow > len(cinema) or seatrow < 1) and count > 1:
+            seatrow = int(input(f"Which row would you like to book a seat on? (row {seatrow} is out of range (1-7): "))
+        else:
+            seatrow = int(input("Which row would you like to book a seat on?: "))
 
     seatcolumn = -1
-    while cinema[seatrow-1][seatcolumn-1] == "" or seatcolumn == -1 or cinema[seatrow-1][seatcolumn-1] == "X" or cinema[seatrow-1][seatcolumn-1] == "#":
+    count = 0
+    while seatcolumn > len(cinema[0]) or seatcolumn < 1 or cinema[seatrow-1][seatcolumn-1] == "" or seatcolumn == -1 or cinema[seatrow-1][seatcolumn-1] == "X" or cinema[seatrow-1][seatcolumn-1] == "#":
         board(cinema,seatrow)
-
-        if seatcolumn == -1:
+        count = count + 1
+        if (seatcolumn > len(cinema[0]) or seatcolumn < 1) and count > 1:
+            seatcolumn = int(input(f"Which seat in row {seatrow} would you like to book a seat on? (seat {seatcolumn} is out of range (1-36)): "))
+        elif seatcolumn == -1 and count == 1:
             seatcolumn = int(input(f"Which seat in row {seatrow} would you like to book a seat on?: "))
         elif cinema[seatrow-1][seatcolumn-1] == "":
             seatcolumn = int(input(f"Which seat in row {seatrow} would you like to book a seat on? (no seat {seatcolumn} in row {seatrow}): "))
         elif cinema[seatrow-1][seatcolumn-1] == "X" or cinema[seatrow-1][seatcolumn-1] == "#":
             seatcolumn = int(input(f"Which seat in row {seatrow} would you like to book a seat on? (seat {seatcolumn} in row {seatrow} is booked): "))
 
+        
     cinema[seatrow-1][seatcolumn-1] = "X"  
 totaltickets = i 
 seatrow = -2
