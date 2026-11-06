@@ -1,6 +1,9 @@
 {
 	"name": "Hazelwick",
-	"image": "mcr.microsoft.com/devcontainers/python:3.12",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
